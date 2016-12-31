@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<header>
+    <div class="row">
+        <div class="col-xs-3 col-sm-4 col-md-6">
+            <a href="/"><img src="static/logo.svg" alt="Logo" width="100" height="100"></a>
+        </div>
+        <div class="col-xs-9 col-sm-8 col-md-6 label">
+            <h1 class="text-right text-uppercase">John's Blog</h1>
+            <h5 class="text-right text-uppercase">Welcome, {{username}} | <a href="/logout">Logout</a></h5>
+        </div>
+        <div class="col-xs-12">
+            <hr>
+        </div>
+    </div>
+</header>
+<main>
+    <h1>Enter details for new blog post</h1>
+    <form method="POST">
+        <label>
+            Title : 
+        <input type="text" class="form-control" name="title" value="{{title}}"></input>
+        </label>
+        <br>
+        <label>
+            Content : 
+            <textarea name="content" rows="15" class="ta form-control">{{content}}</textarea>
+        </label>
+        <br>
+        <div class = "error">
+            <p>{{error}}</p>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</main>
+{% endblock %}

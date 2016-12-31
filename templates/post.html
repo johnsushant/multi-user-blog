@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+<header>
+    <div class="row">
+        <div class="col-xs-3 col-sm-4 col-md-6">
+            <a href="/"><img src="../../static/logo.svg" alt="Logo" width="100" height="100"></a>
+        </div>
+        <div class="col-xs-9 col-sm-8 col-md-6 label">
+            <h1 class="text-right text-uppercase">John's Blog</h1>
+            {% if username == post.username%}
+                <h5 class="text-right text-uppercase">
+                    <a href="/editpost/{{post.key().id()}}">Edit Blog Post</a> | 
+                    <a href="/deletepost/{{post.key().id()}}">Delete Blog Post</a> | 
+                    <a href="/logout">Logout</a>
+                </h5>
+            {% elif username %}
+            {% set score = post.likes|int - post.dislikes|int %}
+                <h5 class="text-right text-uppercase">
+                    Score : {{score}} | 
+                    <a href="/like/{{post.key().id()}}">Like</a> | 
+                    <a href="/dislike/{{post.key().id()}}">Dislike</a> | 
+                    <a href="/logout">Logout</a>
+                </h5>
+            {% else %}
+                <h5 class="text-right text-uppercase"><a href="/login">Login</a></h5>
+            {% endif %}
+        </div>
+        <div class="col-xs-12">
+            <hr>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="row">
+        <div class="col-xs-12">
+            <h3><a href="/blog/{{post.key().id()}}">{{post.title}}</a></h3>
+        </div>
+        <div class="col-xs-6">
+            <h6><strong>Written By : {{post.username}}</strong></h6>
+        </div>
+        <div class="col-xs-6">
+            <h6 class="text-right"><strong>Time : {{post.created}}</strong></h6>
+        </div>
+        <div class="col-xs-12">
+            <br>
+        </div>
+        <div class="col-xs-12">
+            <p>{{post.content}}</p>
+        </div>
+        <div class="col-xs-12">
+            <hr>
+        </div>
+    </div>
+</main>
+{% if username %}
+<section class='comments'>
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Comments</h3>
+        </div>
+        <form method="POST" action="/newcomment">
+            <div class="col-xs-12">
+                <label>Write comment here : <br>
+                    <textarea name="content" rows="5" class="ta form-control">{{editcontent}}</textarea>
+                </label>
+                <br>
+                <input type="hidden" name="post_id" value="{{post.key().id()}}">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+        <div class="col-xs-12">
+            <hr>
+        </div>
+    </div>
+    {% for comment in comments %}
+    <div class="row">
+        <div class="col-xs-6">
+            <h6><strong>Written By : {{comment.username}}</strong></h6>
+        </div>
+        <div class="col-xs-6">
+            <h6 class="text-right"><strong>Time : {{comment.created}}</strong></h6>
+        </div>
+        <div class="col-xs-12">
+            <br>
+        </div>
+        <div class="col-xs-12">
+            <p>{{comment.content}}</p>
+        </div>
+        {% if username == comment.username %}
+        <div class="col-xs-12">
+            <h6><strong><a href="/editcomment/{{post.key().id()}}/{{comment.key().id()}}">Edit</a> | 
+            <a href="/deletecomment/{{comment.key().id()}}">Delete</a></strong></h6>
+        </div>
+        {% endif %}
+        <div class="col-xs-12">
+            <hr>
+        </div>
+    </div>
+    {% endfor %}    
+</section>
+{% endif %}
+{% endblock %}

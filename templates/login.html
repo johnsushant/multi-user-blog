@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<header>
+    <div class="row">
+        <div class="col-xs-3 col-sm-4 col-md-6">
+            <a href="/"><img src="static/logo.svg" alt="Logo" width="100" height="100"> </a>
+        </div>
+        <div class="col-xs-9 col-sm-8 col-md-6 label">
+            <h1 class="text-right text-uppercase">John's Blog</h1>
+            <h5 class="text-right text-uppercase"><a href="/register">New User? Register Here</a></h5>
+        </div>
+        <div class="col-xs-12">
+            <hr>
+        </div>
+    </div>
+</header>
+<main>
+    <h1>Enter details for existing user</h1>
+    <form method="POST">
+        <label>
+            Username : 
+        <input type="text" class="form-control" name="username" value="{{username}}"></input>
+        </label>
+        <br>
+        <label>
+            Password : 
+            <input type="password" class="form-control" name="password" value="{{password}}"></input>
+        </label>
+        <br>
+        <div class = "error">
+            <p>{{error}}</p>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</main>
+{% endblock %}

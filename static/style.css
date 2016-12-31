@@ -1,0 +1,25 @@
+hr {
+    height: 2px;
+    background-color: #7d97ad;
+}
+
+.feat {
+    color: #7d97ad;
+}
+
+h1 {
+    font-family: "Roboto", sans-serif;
+    font-size: 32px;
+}
+
+.label {
+    padding-top: 20px;
+}
+
+.error {
+    color: red;
+}
+
+.ta {
+    width:600px;
+}
